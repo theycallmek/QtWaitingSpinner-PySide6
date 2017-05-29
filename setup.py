@@ -26,11 +26,12 @@ from distutils.core import setup
 
 setup(
     name='pyqtspinner',
-    version='0.1.0',
+    version='0.1.1',
     url='https://github.com/fbjorn/QtWaitingSpinner',
     license='MIT',
     author='fbjorn',
     author_email='kopfabschneider@yandex.ru',
-    description='A loading spinner for PyQt5',
+    description='A waiting spinner for PyQt5',
+    packages=['pyqtspinner'],
     requires=['PyQt5'],
 )
