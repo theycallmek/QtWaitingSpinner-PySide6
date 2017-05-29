@@ -33,7 +33,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 
-class RoundSpinner(QWidget):
+class WaitingSpinner(QWidget):
 
     def __init__(self, parent, centerOnParent=True, disableParentWhenSpinning=False,
                  modality=Qt.NonModal, roundness=100., opacity=None, fade=80., lines=20,

@@ -27,7 +27,6 @@ from distutils.core import setup
 setup(
     name='pyqtspinner',
     version='0.1.0',
-    py_modules=['spinner.py'],
     url='https://github.com/fbjorn/QtWaitingSpinner',
     license='MIT',
     author='fbjorn',

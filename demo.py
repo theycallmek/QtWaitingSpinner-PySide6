@@ -26,8 +26,9 @@ import sys
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
-from spinner import RoundSpinner
+from pyqtspinner.spinner import WaitingSpinner
 
 
 class Demo(QWidget):
@@ -62,7 +63,7 @@ class Demo(QWidget):
         self.setWindowFlags(Qt.Dialog)
 
         # SPINNER
-        self.spinner = RoundSpinner(self)
+        self.spinner = WaitingSpinner(self)
 
         # Spinboxes
         self.sb_roundness = QDoubleSpinBox()
@@ -183,7 +184,8 @@ class Demo(QWidget):
 
     def show_init_args(self):
         text = (
-            'Spinner(\n'
+            'WaitingSpinner(\n'
+            '    parent,\n'
             '    roundness={}, opacity={},\n'
             '    fade={}, radius={}, lines={},\n'
             '    line_length={}, line_width={},\n'
@@ -198,7 +200,11 @@ class Demo(QWidget):
         )
 
         msg_box = QMessageBox(text=text)
-        msg_box.setWindowTitle('init argumets')
+        msg_box.setWindowTitle('Text was copied to clipboard')
+        cb = QApplication.clipboard()
+        cb.clear(mode=cb.Clipboard)
+        cb.setText(text, mode=cb.Clipboard)
+        print(text)
         msg_box.exec_()
 
 if __name__ == '__main__':
