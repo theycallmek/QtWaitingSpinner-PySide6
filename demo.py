@@ -1,9 +1,7 @@
-#!/usr/bin/python
-
 """
 The MIT License (MIT)
 
-Copyright (c) 2016 Luca Weiss
+Copyright (c) 2017 fbjorn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +27,7 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
-from waitingspinnerwidget import QtWaitingSpinner
+from spinner import RoundSpinner
 
 
 class Demo(QWidget):
@@ -64,7 +62,7 @@ class Demo(QWidget):
         self.setWindowFlags(Qt.Dialog)
 
         # SPINNER
-        self.spinner = QtWaitingSpinner(self)
+        self.spinner = RoundSpinner(self)
 
         # Spinboxes
         self.sb_roundness = QDoubleSpinBox()
@@ -98,6 +96,7 @@ class Demo(QWidget):
         self.btn_start = QPushButton("Start")
         self.btn_stop = QPushButton("Stop")
         self.btn_pick_color = QPushButton("Pick Color")
+        self.btn_show_init = QPushButton("Show init args")
 
         # Connects
         self.sb_roundness.valueChanged.connect(self.set_roundness)
@@ -112,6 +111,7 @@ class Demo(QWidget):
         self.btn_start.clicked.connect(self.spinner_start)
         self.btn_stop.clicked.connect(self.spinner_stop)
         self.btn_pick_color.clicked.connect(self.show_color_picker)
+        self.btn_show_init.clicked.connect(self.show_init_args)
 
         # Layout adds
         groupbox1_layout.addWidget(self.spinner)
@@ -139,6 +139,7 @@ class Demo(QWidget):
         button_hbox.addWidget(self.btn_start)
         button_hbox.addWidget(self.btn_stop)
         button_hbox.addWidget(self.btn_pick_color)
+        button_hbox.addWidget(self.btn_show_init)
 
         grid.addWidget(groupbox1, *(1, 1))
         grid.addWidget(groupbox2, *(1, 2))
@@ -180,6 +181,25 @@ class Demo(QWidget):
     def show_color_picker(self):
         self.spinner.setColor(QColorDialog.getColor())
 
+    def show_init_args(self):
+        text = (
+            'Spinner(\n'
+            '    roundness={}, opacity={},\n'
+            '    fade={}, radius={}, lines={},\n'
+            '    line_length={}, line_width={},\n'
+            '    speed={}, color={}\n'
+            ')\n'
+        ).format(
+            self.sb_roundness.value(), self.sb_opacity.value(),
+            self.sb_fadeperc.value(), self.sb_inner_radius.value(),
+            self.sb_lines.value(), self.sb_line_length.value(),
+            self.sb_line_width.value(), self.sb_rev_s.value(),
+            self.spinner.color.getRgb()[:3]
+        )
+
+        msg_box = QMessageBox(text=text)
+        msg_box.setWindowTitle('init argumets')
+        msg_box.exec_()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

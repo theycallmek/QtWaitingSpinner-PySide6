@@ -1,9 +1,7 @@
-#!/usr/bin/env python
-
 """
 The MIT License (MIT)
 
-Copyright (c) 2016 Luca Weiss
+Copyright (c) 2017 fbjorn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,12 +25,13 @@ SOFTWARE.
 from distutils.core import setup
 
 setup(
-    name='QtWaitingSpinner',
-    version='1.0',
-    packages=[''],
-    url='https://github.com/z3ntu/QtWaitingSpinner',
+    name='pyqtspinner',
+    version='0.1.0',
+    py_modules=['spinner.py'],
+    url='https://github.com/fbjorn/QtWaitingSpinner',
     license='MIT',
-    author='Luca Weiss',
-    author_email='WEI16416@spengergasse.at',
-    description='A waiting spinner for PyQt5', requires=['PyQt5']
+    author='fbjorn',
+    author_email='kopfabschneider@yandex.ru',
+    description='A loading spinner for PyQt5',
+    requires=['PyQt5'],
 )

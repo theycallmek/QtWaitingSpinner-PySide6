@@ -1,4 +1,6 @@
-#QtWaitingSpinner
+# QtWaitingSpinner
+
+Thanks @z3ntu for the groundwork.
 
 QtWaitingSpinner is a highly configurable, custom Qt widget for showing "waiting" or "loading" spinner icons in Qt applications, e.g. the spinners below are all QtWaitingSpinner widgets differing only in their configuration:
 
