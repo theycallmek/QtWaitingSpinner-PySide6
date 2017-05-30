@@ -1,6 +1,6 @@
 # QtWaitingSpinner
 
-Thanks @z3ntu for the groundwork.
+
 
 QtWaitingSpinner is a highly configurable, custom Qt widget for showing "waiting" or "loading" spinner icons in Qt applications, e.g. the spinners below are all QtWaitingSpinner widgets differing only in their configuration:
 
@@ -22,31 +22,22 @@ The following properties can all be controlled directly through their correspond
 
 ### Usage
 
-Despite being highly configurable, QtWaitingSpinner is extremely easy to use and, to make things even easier, the "QtWaitingSpinnerTest" application can assist you in determining the exact shape, size and color you'd like your spinner to have.
+You can easily ajust spinner settings via `demo.py` file:  
 
-For example, the embedded spinner in the QtWaitingSpinnerTest screenshot below can be created as follows:
+![demo dialog](http://i.imgur.com/dVVSgaS.png)  
 
+Make the spinner you would like to see and press "show init args" button.
+It will generate the code snippet which is almost ready-to-use:
+
+```python
+WaitingSpinner(
+    parent,
+    roundness=70.0, opacity=15.0,
+    fade=70.0, radius=10.0, lines=12,
+    line_length=10.0, line_width=5.0,
+    speed=1.0, color=(0, 0, 0)
+)
 ```
-from waitingspinnerwidget import QtWaitingSpinner
-
-spinner = QtWaitingSpinner(self)
-
-spinner.setRoundness(70.0)
-spinner.setMinimumTrailOpacity(15.0)
-spinner.setTrailFadePercentage(70.0)
-spinner.setNumberOfLines(12)
-spinner.setLineLength(10)
-spinner.setLineWidth(5)
-spinner.setInnerRadius(10)
-spinner.setRevolutionsPerSecond(1)
-spinner.setColor(QColor(81, 4, 71))
-
-spinner.start()
-```
-
-A demo is included with the `demo.py` file.
-
-![demo dialog](https://github.com/z3ntu/QtWaitingSpinner/blob/gh-pages/test-dialog.png)
 
 As an alternative example, the code below will create a spinner that (1) blocks all user input to the main application for as long as the spinner is active, (2) automatically centers itself on its parent widget every time "start" is called and (3) makes use of the default shape, size and color settings.
 
@@ -55,11 +46,9 @@ spinner = QtWaitingSpinner(self, True, True, Qt.ApplicationModal)
 spinner.start() # starts spinning
 ```
 
-Please use [use this link](https://github.com/z3ntu/QtWaitingSpinner/issues) for feedback, requests or issues.
 
 Enjoy!
 
 ### Thanks:
-to [@snowwlex](https://github.com/snowwlex) for the base of my port (and this README)!
-
-QtWaitingSpinner was inspired by the [spin.js](http://fgnass.github.io/spin.js/)  project.
+to [@z3ntu](https://github.com/z3ntu) for the groundwork.  
+to [@snowwlex](https://github.com/snowwlex) for the widget itself.
