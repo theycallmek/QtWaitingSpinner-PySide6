@@ -6,6 +6,10 @@ QtWaitingSpinner is a highly configurable, custom Qt widget for showing "waiting
 
 ![waiting spinner](https://github.com/z3ntu/QtWaitingSpinner/blob/gh-pages/waiting-spinners.gif)
 
+### Installation
+
+`pip install pyqtspinner`
+
 ### Configuration
 
 The following properties can all be controlled directly through their corresponding setters:
