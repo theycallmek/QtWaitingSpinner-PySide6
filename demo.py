@@ -21,17 +21,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-
+import math
 import sys
 
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PyQt5.QtCore import Qt, pyqtSlot
+from PyQt5.QtWidgets import (
+    QApplication,
+    QColorDialog,
+    QDoubleSpinBox,
+    QGridLayout,
+    QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QMessageBox,
+    QPushButton,
+    QSpinBox,
+    QWidget,
+)
 
 from pyqtspinner.spinner import WaitingSpinner
 
 
+# pylint: disable=too-many-instance-attributes,too-many-statements
 class Demo(QWidget):
+    """Demonstration class."""
+
     sb_roundness = None
     sb_opacity = None
     sb_fadeperc = None
@@ -47,11 +61,12 @@ class Demo(QWidget):
 
     spinner = None
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.init_ui()
 
-    def init_ui(self):
+    def init_ui(self) -> None:
+        """Initialize ui."""
         grid = QGridLayout()
         groupbox1 = QGroupBox()
         groupbox1_layout = QHBoxLayout()
@@ -76,21 +91,21 @@ class Demo(QWidget):
         self.sb_rev_s = QDoubleSpinBox()
 
         # set spinbox default values
-        self.sb_roundness.setValue(70)
+        self.sb_roundness.setValue(100)
         self.sb_roundness.setRange(0, 9999)
-        self.sb_opacity.setValue(15)
+        self.sb_opacity.setValue(math.pi)
         self.sb_opacity.setRange(0, 9999)
-        self.sb_fadeperc.setValue(70)
+        self.sb_fadeperc.setValue(80)
         self.sb_fadeperc.setRange(0, 9999)
-        self.sb_lines.setValue(12)
+        self.sb_lines.setValue(20)
         self.sb_lines.setRange(1, 9999)
         self.sb_line_length.setValue(10)
         self.sb_line_length.setRange(0, 9999)
-        self.sb_line_width.setValue(5)
+        self.sb_line_width.setValue(2)
         self.sb_line_width.setRange(0, 9999)
         self.sb_inner_radius.setValue(10)
         self.sb_inner_radius.setRange(0, 9999)
-        self.sb_rev_s.setValue(1)
+        self.sb_rev_s.setValue(math.pi / 2)
         self.sb_rev_s.setRange(0.1, 9999)
 
         # Buttons
@@ -100,17 +115,33 @@ class Demo(QWidget):
         self.btn_show_init = QPushButton("Show init args")
 
         # Connects
-        self.sb_roundness.valueChanged.connect(self.set_roundness)
-        self.sb_opacity.valueChanged.connect(self.set_opacity)
-        self.sb_fadeperc.valueChanged.connect(self.set_fadeperc)
-        self.sb_lines.valueChanged.connect(self.set_lines)
-        self.sb_line_length.valueChanged.connect(self.set_line_length)
-        self.sb_line_width.valueChanged.connect(self.set_line_width)
-        self.sb_inner_radius.valueChanged.connect(self.set_inner_radius)
-        self.sb_rev_s.valueChanged.connect(self.set_rev_s)
+        self.sb_roundness.valueChanged.connect(
+            lambda x: setattr(self.spinner, "roundness", x)
+        )
+        self.sb_opacity.valueChanged.connect(
+            lambda x: setattr(self.spinner, "minimum_trail_opacity", x)
+        )
+        self.sb_fadeperc.valueChanged.connect(
+            lambda x: setattr(self.spinner, "trail_fade_percentage", x)
+        )
+        self.sb_lines.valueChanged.connect(
+            lambda x: setattr(self.spinner, "number_of_lines", x)
+        )
+        self.sb_line_length.valueChanged.connect(
+            lambda x: setattr(self.spinner, "line_length", x)
+        )
+        self.sb_line_width.valueChanged.connect(
+            lambda x: setattr(self.spinner, "line_width", x)
+        )
+        self.sb_inner_radius.valueChanged.connect(
+            lambda x: setattr(self.spinner, "inner_radius", x)
+        )
+        self.sb_rev_s.valueChanged.connect(
+            lambda x: setattr(self.spinner, "revolutions_per_second", x)
+        )
 
-        self.btn_start.clicked.connect(self.spinner_start)
-        self.btn_stop.clicked.connect(self.spinner_stop)
+        self.btn_start.clicked.connect(self.spinner.start)
+        self.btn_stop.clicked.connect(self.spinner.stop)
         self.btn_pick_color.clicked.connect(self.show_color_picker)
         self.btn_show_init.clicked.connect(self.show_init_args)
 
@@ -149,65 +180,39 @@ class Demo(QWidget):
         self.spinner.start()
         self.show()
 
-    def set_roundness(self):
-        self.spinner.setRoundness(self.sb_roundness.value())
+    @pyqtSlot(name="show_color_picker")
+    def show_color_picker(self) -> None:
+        """Set the color for the spinner."""
+        assert self.spinner
+        self.spinner.color = QColorDialog.getColor()
 
-    def set_opacity(self):
-        self.spinner.setMinimumTrailOpacity(self.sb_opacity.value())
-
-    def set_fadeperc(self):
-        self.spinner.setTrailFadePercentage(self.sb_fadeperc.value())
-
-    def set_lines(self):
-        self.spinner.setNumberOfLines(self.sb_lines.value())
-
-    def set_line_length(self):
-        self.spinner.setLineLength(self.sb_line_length.value())
-
-    def set_line_width(self):
-        self.spinner.setLineWidth(self.sb_line_width.value())
-
-    def set_inner_radius(self):
-        self.spinner.setInnerRadius(self.sb_inner_radius.value())
-
-    def set_rev_s(self):
-        self.spinner.setRevolutionsPerSecond(self.sb_rev_s.value())
-
-    def spinner_start(self):
-        self.spinner.start()
-
-    def spinner_stop(self):
-        self.spinner.stop()
-
-    def show_color_picker(self):
-        self.spinner.setColor(QColorDialog.getColor())
-
-    def show_init_args(self):
+    @pyqtSlot(name="show_init_args")
+    def show_init_args(self) -> None:
+        """Display used arguments."""
+        assert self.spinner
         text = (
-            'WaitingSpinner(\n'
-            '    parent,\n'
-            '    roundness={}, opacity={},\n'
-            '    fade={}, radius={}, lines={},\n'
-            '    line_length={}, line_width={},\n'
-            '    speed={}, color={}\n'
-            ')\n'
-        ).format(
-            self.sb_roundness.value(), self.sb_opacity.value(),
-            self.sb_fadeperc.value(), self.sb_inner_radius.value(),
-            self.sb_lines.value(), self.sb_line_length.value(),
-            self.sb_line_width.value(), self.sb_rev_s.value(),
-            self.spinner.color.getRgb()[:3]
+            f"WaitingSpinner(\n    parent,\n    "
+            f"roundness={self.spinner.roundness}, "
+            f"opacity={self.spinner.minimum_trail_opacity},\n    "
+            f"fade={self.spinner.trail_fade_percentage}, "
+            f"radius={self.spinner.inner_radius}, "
+            f"lines={self.spinner.number_of_lines},\n    "
+            f"line_length={self.spinner.line_length}, "
+            f"line_width={self.spinner.line_width},\n    "
+            f"speed={self.spinner.revolutions_per_second}, "
+            f"color={self.spinner.color.getRgb()[:3]}\n)\n"
         )
-
-        msg_box = QMessageBox(text=text)
-        msg_box.setWindowTitle('Text was copied to clipboard')
-        cb = QApplication.clipboard()
-        cb.clear(mode=cb.Clipboard)
-        cb.setText(text, mode=cb.Clipboard)
+        msg_box = QMessageBox()
+        msg_box.setText(text)
+        msg_box.setWindowTitle("Text was copied to clipboard")
+        clipboard = QApplication.clipboard()
+        clipboard.clear(mode=clipboard.Clipboard)
+        clipboard.setText(text, mode=clipboard.Clipboard)
         print(text)
         msg_box.exec_()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     main = Demo()
     sys.exit(app.exec())
