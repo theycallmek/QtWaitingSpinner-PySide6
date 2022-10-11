@@ -40,7 +40,7 @@ You can easily ajust spinner settings by running:
 pyqtspinner-conf
 ```
 
-<img src="https://github.com/fbjorn/QtWaitingSpinner/blob/master/static/config.png" width="600">
+<img src="https://github.com/fbjorn/QtWaitingSpinner/blob/master/static/config.png">
 
 Make the spinner you would like and press "show init args" button. It will
 generate the code snippet which is almost ready-to-use:
