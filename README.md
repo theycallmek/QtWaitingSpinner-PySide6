@@ -6,11 +6,11 @@ QtWaitingSpinner is a highly configurable, custom Qt widget for showing "waiting
 "loading" spinner icons in Qt applications, e.g. the spinners below are all
 QtWaitingSpinner widgets differing only in their configuration:
 
-![waiting spinner](https://github.com/z3ntu/QtWaitingSpinner/blob/gh-pages/waiting-spinners.gif)
+![waiting spinner](https://raw.githubusercontent.com/z3ntu/QtWaitingSpinner/gh-pages/waiting-spinners.gif)
 
 The widget is pretty customizable:
 
-<img src="https://github.com/fbjorn/QtWaitingSpinner/blob/master/static/examples.png" width="600">
+![examples](https://raw.githubusercontent.com/fbjorn/QtWaitingSpinner/master/static/examples.png)
 
 
 ### Installation
@@ -40,7 +40,7 @@ You can easily ajust spinner settings by running:
 pyqtspinner-conf
 ```
 
-<img src="https://github.com/fbjorn/QtWaitingSpinner/blob/master/static/config.png">
+![configuration](https://raw.githubusercontent.com/fbjorn/QtWaitingSpinner/master/static/config.png)
 
 Make the spinner you would like and press "show init args" button. It will
 generate the code snippet which is almost ready-to-use:
