@@ -9,4 +9,7 @@ build:
 
 ci: install test
 
-.PHONY: ci install test build
+publish:
+	poetry publish --build
+
+.PHONY: ci install test build publish
