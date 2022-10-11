@@ -1,28 +1,6 @@
-"""
-The MIT License (MIT)
-
-Copyright (c) 2017 fbjorn
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
 import math
 import sys
+from random import random
 
 from PyQt5.QtCore import Qt, pyqtSlot
 from PyQt5.QtWidgets import (
@@ -39,13 +17,11 @@ from PyQt5.QtWidgets import (
     QWidget,
 )
 
-from pyqtspinner.spinner import WaitingSpinner
+from .spinner import WaitingSpinner
 
 
 # pylint: disable=too-many-instance-attributes,too-many-statements
-class Demo(QWidget):
-    """Demonstration class."""
-
+class SpinnerConfigurator(QWidget):
     sb_roundness = None
     sb_opacity = None
     sb_fadeperc = None
@@ -74,7 +50,7 @@ class Demo(QWidget):
         groupbox2_layout = QGridLayout()
         button_hbox = QHBoxLayout()
         self.setLayout(grid)
-        self.setWindowTitle("QtWaitingSpinner Demo")
+        self.setWindowTitle("QtWaitingSpinner Configurator")
         self.setWindowFlags(Qt.Dialog)
 
         # SPINNER
@@ -112,6 +88,7 @@ class Demo(QWidget):
         self.btn_start = QPushButton("Start")
         self.btn_stop = QPushButton("Stop")
         self.btn_pick_color = QPushButton("Pick Color")
+        self.btn_randomize = QPushButton("Randomize")
         self.btn_show_init = QPushButton("Show init args")
 
         # Connects
@@ -143,6 +120,7 @@ class Demo(QWidget):
         self.btn_start.clicked.connect(self.spinner.start)
         self.btn_stop.clicked.connect(self.spinner.stop)
         self.btn_pick_color.clicked.connect(self.show_color_picker)
+        self.btn_randomize.clicked.connect(self._randomize)
         self.btn_show_init.clicked.connect(self.show_init_args)
 
         # Layout adds
@@ -171,6 +149,7 @@ class Demo(QWidget):
         button_hbox.addWidget(self.btn_start)
         button_hbox.addWidget(self.btn_stop)
         button_hbox.addWidget(self.btn_pick_color)
+        button_hbox.addWidget(self.btn_randomize)
         button_hbox.addWidget(self.btn_show_init)
 
         grid.addWidget(groupbox1, *(1, 1))
@@ -179,6 +158,17 @@ class Demo(QWidget):
 
         self.spinner.start()
         self.show()
+
+    @pyqtSlot(name="randomize")
+    def _randomize(self) -> None:
+        self.sb_roundness.setValue(random() * 1000)
+        self.sb_opacity.setValue(random() * 50)
+        self.sb_fadeperc.setValue(random() * 100)
+        self.sb_lines.setValue(math.floor(random() * 150))
+        self.sb_line_length.setValue(10 + random() * 20)
+        self.sb_line_width.setValue(random() * 30)
+        self.sb_inner_radius.setValue(random() * 30)
+        self.sb_rev_s.setValue(random())
 
     @pyqtSlot(name="show_color_picker")
     def show_color_picker(self) -> None:
@@ -192,14 +182,14 @@ class Demo(QWidget):
         assert self.spinner
         text = (
             f"WaitingSpinner(\n    parent,\n    "
-            f"roundness={self.spinner.roundness}, "
+            f"roundness={self.spinner.roundness},\n    "
             f"opacity={self.spinner.minimum_trail_opacity},\n    "
-            f"fade={self.spinner.trail_fade_percentage}, "
-            f"radius={self.spinner.inner_radius}, "
+            f"fade={self.spinner.trail_fade_percentage},\n    "
+            f"radius={self.spinner.inner_radius},\n    "
             f"lines={self.spinner.number_of_lines},\n    "
-            f"line_length={self.spinner.line_length}, "
+            f"line_length={self.spinner.line_length},\n    "
             f"line_width={self.spinner.line_width},\n    "
-            f"speed={self.spinner.revolutions_per_second}, "
+            f"speed={self.spinner.revolutions_per_second},\n    "
             f"color={self.spinner.color.getRgb()[:3]}\n)\n"
         )
         msg_box = QMessageBox()
@@ -212,7 +202,7 @@ class Demo(QWidget):
         msg_box.exec_()
 
 
-if __name__ == "__main__":
+def main():
     app = QApplication(sys.argv)
-    main = Demo()
+    configurator = SpinnerConfigurator()  # noqa
     sys.exit(app.exec())
