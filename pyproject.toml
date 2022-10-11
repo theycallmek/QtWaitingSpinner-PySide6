@@ -3,6 +3,7 @@ name = "pyqtspinner"
 version = "1.0.1"
 description = "Waiting spinner for PyQt5"
 authors = ["Denis <fbjorn@users.noreply.github.com>"]
+repository = "https://github.com/fbjorn/QtWaitingSpinner"
 license = "MIT"
 readme = "README.md"
 classifiers = [
