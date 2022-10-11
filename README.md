@@ -8,6 +8,11 @@ QtWaitingSpinner widgets differing only in their configuration:
 
 ![waiting spinner](https://github.com/z3ntu/QtWaitingSpinner/blob/gh-pages/waiting-spinners.gif)
 
+The widget is pretty customizable:
+
+<img src="https://github.com/fbjorn/QtWaitingSpinner/blob/master/static/examples.png" width="600">
+
+
 ### Installation
 
 `pip install pyqtspinner`
@@ -29,20 +34,29 @@ setters:
 
 ### Usage
 
-You can easily ajust spinner settings via `demo.py` file:
+You can easily ajust spinner settings by running:
 
-![demo dialog](http://i.imgur.com/dVVSgaS.png)
+```bash
+pyqtspinner-conf
+```
 
-Make the spinner you would like to see and press "show init args" button. It will
+<img src="https://github.com/fbjorn/QtWaitingSpinner/blob/master/static/config.png" width="600">
+
+Make the spinner you would like and press "show init args" button. It will
 generate the code snippet which is almost ready-to-use:
 
 ```python
 WaitingSpinner(
     parent,
-    roundness=70.0, opacity=15.0,
-    fade=70.0, radius=10.0, lines=12,
-    line_length=10.0, line_width=5.0,
-    speed=1.0, color=(0, 0, 0)
+    roundness=100.0,
+    opacity=3.141592653589793,
+    fade=80.0,
+    radius=10,
+    lines=20,
+    line_length=10,
+    line_width=2,
+    speed=1.5707963267948966,
+    color=(0, 0, 0)
 )
 ```
 
