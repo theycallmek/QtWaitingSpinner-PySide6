@@ -12,7 +12,6 @@ The widget is pretty customizable:
 
 ![examples](https://raw.githubusercontent.com/fbjorn/QtWaitingSpinner/master/static/examples.png)
 
-
 ### Installation
 
 `pip install pyqtspinner`
@@ -34,7 +33,7 @@ setters:
 
 ### Usage
 
-You can easily ajust spinner settings by running:
+You can easily adjust spinner settings by running:
 
 ```bash
 pyqtspinner-conf
@@ -42,8 +41,8 @@ pyqtspinner-conf
 
 ![configuration](https://raw.githubusercontent.com/fbjorn/QtWaitingSpinner/master/static/config.png)
 
-Make the spinner you would like and press "show init args" button. It will
-generate the code snippet which is almost ready-to-use:
+Make the spinner you would like and press "show init args" button. It will generate the
+code snippet which is almost ready-to-use:
 
 ```python
 WaitingSpinner(

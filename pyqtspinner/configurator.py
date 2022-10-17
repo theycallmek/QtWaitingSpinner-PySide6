@@ -61,9 +61,9 @@ class SpinnerConfigurator(QWidget):
         self.sb_opacity = QDoubleSpinBox()
         self.sb_fadeperc = QDoubleSpinBox()
         self.sb_lines = QSpinBox()
-        self.sb_line_length = QDoubleSpinBox()
-        self.sb_line_width = QDoubleSpinBox()
-        self.sb_inner_radius = QDoubleSpinBox()
+        self.sb_line_length = QSpinBox()
+        self.sb_line_width = QSpinBox()
+        self.sb_inner_radius = QSpinBox()
         self.sb_rev_s = QDoubleSpinBox()
 
         # set spinbox default values
@@ -165,9 +165,9 @@ class SpinnerConfigurator(QWidget):
         self.sb_opacity.setValue(random() * 50)
         self.sb_fadeperc.setValue(random() * 100)
         self.sb_lines.setValue(math.floor(random() * 150))
-        self.sb_line_length.setValue(10 + random() * 20)
-        self.sb_line_width.setValue(random() * 30)
-        self.sb_inner_radius.setValue(random() * 30)
+        self.sb_line_length.setValue(math.floor(10 + random() * 20))
+        self.sb_line_width.setValue(math.floor(random() * 30))
+        self.sb_inner_radius.setValue(math.floor(random() * 30))
         self.sb_rev_s.setValue(random())
 
     @pyqtSlot(name="show_color_picker")

@@ -28,7 +28,7 @@ SOFTWARE.
 
 import math
 
-from PyQt5.QtCore import QRectF, Qt, QTimer
+from PyQt5.QtCore import QRect, Qt, QTimer
 from PyQt5.QtGui import QColor, QPainter, QPaintEvent
 from PyQt5.QtWidgets import QWidget
 
@@ -46,9 +46,9 @@ class WaitingSpinner(QWidget):
         roundness: float = 100.0,
         fade: float = 80.0,
         lines: int = 20,
-        line_length: float = 10,
-        line_width: float = 2,
-        radius: float = 10,
+        line_length: int = 10,
+        line_width: int = 2,
+        radius: int = 10,
         speed: float = math.pi / 2,
         color: QColor = QColor(0, 0, 0),
     ) -> None:
@@ -63,9 +63,9 @@ class WaitingSpinner(QWidget):
         self._trail_fade_percentage: float = fade
         self._revolutions_per_second: float = speed
         self._number_of_lines: int = lines
-        self._line_length: float = line_length
-        self._line_width: float = line_width
-        self._inner_radius: float = radius
+        self._line_length: int = line_length
+        self._line_width: int = line_width
+        self._inner_radius: int = radius
         self._current_counter: int = 0
         self._is_spinning: bool = False
 
@@ -95,7 +95,7 @@ class WaitingSpinner(QWidget):
                 self._inner_radius + self._line_length,
                 self._inner_radius + self._line_length,
             )
-            rotate_angle = float(360 * i) / float(self._number_of_lines)
+            rotate_angle = 360 * i / self._number_of_lines
             painter.rotate(rotate_angle)
             painter.translate(self._inner_radius, 0)
             distance = self._line_count_distance_from_primary(
@@ -110,9 +110,9 @@ class WaitingSpinner(QWidget):
             )
             painter.setBrush(color)
             painter.drawRoundedRect(
-                QRectF(
+                QRect(
                     0,
-                    -self._line_width / 2,
+                    -self._line_width // 2,
                     self._line_length,
                     self._line_width,
                 ),
@@ -211,34 +211,34 @@ class WaitingSpinner(QWidget):
         self._update_timer()
 
     @property
-    def line_length(self) -> float:
+    def line_length(self) -> int:
         """Return line length of WaitingSpinner."""
         return self._line_length
 
     @line_length.setter
-    def line_length(self, length: float) -> None:
+    def line_length(self, length: int) -> None:
         """Set line length of WaitingSpinner."""
         self._line_length = length
         self._update_size()
 
     @property
-    def line_width(self) -> float:
+    def line_width(self) -> int:
         """Return line width of WaitingSpinner."""
         return self._line_width
 
     @line_width.setter
-    def line_width(self, width: float) -> None:
+    def line_width(self, width: int) -> None:
         """Set line width of WaitingSpinner."""
         self._line_width = width
         self._update_size()
 
     @property
-    def inner_radius(self) -> float:
+    def inner_radius(self) -> int:
         """Return inner radius size of WaitingSpinner."""
         return self._inner_radius
 
     @inner_radius.setter
-    def inner_radius(self, radius: float) -> None:
+    def inner_radius(self, radius: int) -> None:
         """Set inner radius size of WaitingSpinner."""
         self._inner_radius = radius
         self._update_size()
@@ -258,7 +258,7 @@ class WaitingSpinner(QWidget):
     def _update_size(self) -> None:
         """Update the size of the WaitingSpinner."""
         size = (self._inner_radius + self._line_length) * 2
-        self.setFixedSize(int(size), int(size))
+        self.setFixedSize(size, size)
 
     def _update_timer(self) -> None:
         """Update the spinning speed of the WaitingSpinner."""
@@ -270,8 +270,8 @@ class WaitingSpinner(QWidget):
         """Center WaitingSpinner on parent widget."""
         if self.parentWidget() and self._center_on_parent:
             self.move(
-                self.parentWidget().width() // 2 - self.width() // 2,
-                self.parentWidget().height() // 2 - self.height() // 2,
+                (self.parentWidget().width() - self.width()) // 2,
+                (self.parentWidget().height() - self.height()) // 2,
             )
 
     @staticmethod
