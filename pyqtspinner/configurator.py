@@ -2,8 +2,10 @@ import math
 import sys
 from random import random
 
-from PyQt5.QtCore import Qt, pyqtSlot
-from PyQt5.QtWidgets import (
+from PySide6 import QtGui
+from PySide6.QtCore import Slot as pyqtSlot
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import (
     QApplication,
     QColorDialog,
     QDoubleSpinBox,
@@ -196,13 +198,39 @@ class SpinnerConfigurator(QWidget):
         msg_box.setText(text)
         msg_box.setWindowTitle("Text was copied to clipboard")
         clipboard = QApplication.clipboard()
-        clipboard.clear(mode=clipboard.Clipboard)
-        clipboard.setText(text, mode=clipboard.Clipboard)
+        clipboard.clear()
+        clipboard.setText(text)
         print(text)
         msg_box.exec_()
 
+def set_palette(my_app):
+    my_app.setStyle("Fusion")
+    dark_palette = QtGui.QPalette()
+    dark_color = QtGui.QColor(45, 45, 45)
+    disabled_color = QtGui.QColor(127, 127, 127)
+    white_color = QtGui.QColor(255, 255, 255)
+    dark_palette.setColor(QtGui.QPalette.Window, dark_color)
+    dark_palette.setColor(QtGui.QPalette.WindowText, white_color)
+    dark_palette.setColor(QtGui.QPalette.Base, QtGui.QColor(18, 18, 18))
+    dark_palette.setColor(QtGui.QPalette.AlternateBase, dark_color)
+    dark_palette.setColor(QtGui.QPalette.ToolTipBase, white_color)
+    dark_palette.setColor(QtGui.QPalette.ToolTipText, white_color)
+    dark_palette.setColor(QtGui.QPalette.Text, white_color)
+    dark_palette.setColor(QtGui.QPalette.Disabled, QtGui.QPalette.Text, disabled_color)
+    dark_palette.setColor(QtGui.QPalette.Button, dark_color)
+    dark_palette.setColor(QtGui.QPalette.ButtonText, white_color)
+    dark_palette.setColor(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, disabled_color)
+    dark_palette.setColor(QtGui.QPalette.BrightText, QtGui.QColor(187, 134, 252))
+    dark_palette.setColor(QtGui.QPalette.Link, QtGui.QColor(187, 134, 252))
+    dark_palette.setColor(QtGui.QPalette.Highlight, QtGui.QColor(187, 134, 252))
+    dark_palette.setColor(QtGui.QPalette.HighlightedText, QtGui.QColor(255, 255, 255))
+    dark_palette.setColor(QtGui.QPalette.Disabled, QtGui.QPalette.HighlightedText, disabled_color)
+    my_app.setPalette(dark_palette)
+    my_app.setStyleSheet(
+        "QToolTip { color: #ffffff; background-color: rgb(187, 134, 252); border: 0px solid white; }")
 
 def main():
     app = QApplication(sys.argv)
+    set_palette(app)
     configurator = SpinnerConfigurator()  # noqa
     sys.exit(app.exec())
