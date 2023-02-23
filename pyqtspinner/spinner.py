@@ -28,9 +28,9 @@ SOFTWARE.
 
 import math
 
-from PyQt5.QtCore import QRect, Qt, QTimer
-from PyQt5.QtGui import QColor, QPainter, QPaintEvent
-from PyQt5.QtWidgets import QWidget
+from PySide6.QtCore import QRect, Qt, QTimer
+from PySide6.QtGui import QColor, QPainter, QPaintEvent
+from PySide6.QtWidgets import QWidget
 
 
 # pylint: disable=too-many-instance-attributes,too-many-arguments
