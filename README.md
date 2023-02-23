@@ -73,4 +73,4 @@ Enjoy!
 ### Thanks:
 
 to [@z3ntu](https://github.com/z3ntu) for the groundwork. to
-[@snowwlex](https://github.com/snowwlex) for the widget itself. [fbjorn](https://github.com/fbjorn) for updating to PyQt5.
+[@snowwlex](https://github.com/snowwlex) for the widget itself. [@fbjorn](https://github.com/fbjorn) for updating to PyQt5.
