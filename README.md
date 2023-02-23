@@ -1,6 +1,5 @@
-# QtWaitingSpinner
+# QtWaitingSpinner-PySide6
 
-[![PyPI version](https://badge.fury.io/py/pyqtspinner.svg)](https://badge.fury.io/py/pyqtspinner)
 
 QtWaitingSpinner is a highly configurable, custom Qt widget for showing "waiting" or
 "loading" spinner icons in Qt applications, e.g. the spinners below are all
@@ -74,4 +73,4 @@ Enjoy!
 ### Thanks:
 
 to [@z3ntu](https://github.com/z3ntu) for the groundwork. to
-[@snowwlex](https://github.com/snowwlex) for the widget itself.
+[@snowwlex](https://github.com/snowwlex) for the widget itself. [fbjorn](https://github.com/fbjorn) for updating to PyQt5.
